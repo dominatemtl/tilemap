@@ -21,7 +21,7 @@ int main(void) {
     al_install_mouse();
     al_install_keyboard();
  
-	//test NEW
+
  
     /* The example will work without those, but there will be no
      * FPS display and no icon.
