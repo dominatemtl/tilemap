@@ -5,6 +5,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
+#include <fstream>
  
 #include "allegro5/allegro.h"
 #include "allegro5/allegro_image.h"
@@ -28,7 +29,7 @@ extern float scroll_x, scroll_y;
 void tile_draw(int i, float x, float y, float w, float h);
 void tile_map_create(void);
 void tile_map_draw(void);
-
+void tile_load_map(const char *filename);
 #endif
 
 //test

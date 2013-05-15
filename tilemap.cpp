@@ -125,4 +125,24 @@ void tile_map_draw(void) {
     al_identity_transform(&transform);
     al_use_transform(&transform);
 }
+
+void tile_load_map(const char *&filename)
+{
+
+	int loadCounterX= 0, loadCounterY = 0, mapSizeX, mapSizeY;
+
+	std::ifstream openfile(filename);
+	if(openfile.is_open())
+	{
+		openfile >> mapSizeX >> mapSizeY;
+		while(!openfile.eof())
+		{
+
+			//LOAD THE MAP
+
+		}
+
+
+	}
+}
  
