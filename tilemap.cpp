@@ -13,7 +13,7 @@ ALLEGRO_BITMAP *tiles;
 /* Our icon and font. */
 ALLEGRO_BITMAP *icon;
 
-int tile_map[100][100];
+int tile_map[100 * 100];
 
 
  
@@ -24,7 +24,6 @@ void tile_draw(int i, float x, float y, float w, float h) {
     ALLEGRO_COLOR black = al_map_rgb(0, 0, 0);
     ALLEGRO_COLOR yellow = al_map_rgb(255, 255, 0);
     ALLEGRO_COLOR red = al_map_rgb(255, 0, 0);
-	ALLEGRO_COLOR pink = al_map_rgb(255, 0, 255);
     switch (i) {
         case 0:
             al_draw_filled_rectangle(x, y, x + w, y + h, black);
@@ -45,11 +44,6 @@ void tile_draw(int i, float x, float y, float w, float h) {
             if (icon)
                 al_draw_scaled_bitmap(icon, 0, 0, 48, 48,
                     x, y, w, h, 0);
-        case 4:
-            al_draw_filled_rectangle(x, y, x + w, y + h, pink);
-            if (icon)
-                al_draw_scaled_bitmap(icon, 0, 0, 48, 48,
-                    x, y, w, h, 0);
             break;
     }
 }
@@ -62,7 +56,7 @@ void tile_map_create(void) {
     tiles = al_create_bitmap(1024, 1024);
     al_set_target_bitmap(tiles);
     al_clear_to_color(al_map_rgba(0, 0, 0, 0));
-    for (i = 0; i < 5; i++) {
+    for (i = 0; i < 4; i++) {
         /* We draw the tiles a bit bigger (66x66 instead of 64x64)
          * to account for the linear filtering. Normally just leaving
          * the border transparent for sprites or repeating the border
@@ -73,9 +67,9 @@ void tile_map_create(void) {
     al_set_target_backbuffer(display);
  
     /* Create the random map. */
-    for (x = 0; x < 100; x++) {
-        for (y = 0; y < 100; y++) {
-            tile_map[x][y] = rand() % 5;
+    for (y = 0; y < 100; y++) {
+        for (x = 0; x < 100; x++) {
+            tile_map[x + y * 100] = rand() % 4;
         }
     }
  
@@ -89,8 +83,7 @@ void tile_map_draw(void) {
     int x, y;
     ALLEGRO_TRANSFORM transform;
     float w, h;
-	
-
+ 
     w = al_get_display_width(display);
     h = al_get_display_height(display);
  
@@ -107,17 +100,15 @@ void tile_map_draw(void) {
     al_use_transform(&transform);
  
     al_clear_to_color(al_map_rgb(0, 0, 0));
-
  
     al_hold_bitmap_drawing(1);
-    for (x = 0; x < 100; x++) {
-        for (y = 0; y < 100; y++) {
-            int i = tile_map[x][y];
+    for (y = 0; y < 100; y++) {
+        for (x = 0; x < 100; x++) {
+            int i = tile_map[x + y * 100];
             float u = 1 + i * 66;
             float v = 1;
             al_draw_scaled_bitmap(tiles, u, v, 64, 64,
                 x * 32, y * 32, 32, 32, 0);
-
         }
     }
     al_hold_bitmap_drawing(0);

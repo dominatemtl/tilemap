@@ -20,7 +20,7 @@ extern ALLEGRO_BITMAP *tiles;
 extern ALLEGRO_BITMAP *icon;
 
 /* Our tilemap. */
-extern int tile_map[100][100];
+extern int tile_map[100 * 100];
 /* Camera parameters. */
 extern float zoom , rotate;
 extern float scroll_x, scroll_y;
@@ -30,5 +30,3 @@ void tile_map_create(void);
 void tile_map_draw(void);
 
 #endif
-
-//test
